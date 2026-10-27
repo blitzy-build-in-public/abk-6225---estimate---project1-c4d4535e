@@ -51,8 +51,7 @@ def test_page_accepts_name_of_fifty_characters(client):
 
 
 def test_page_rejects_over_long_name(client):
-    """An over-long name shows the error, keeps the default greeting and is
-    not echoed back into the page."""
+    """An over-long name shows the error and keeps the default greeting."""
     name = "a" * 51
     response = client.get("/", query_string={"name": name})
     body = response.get_data(as_text=True)
