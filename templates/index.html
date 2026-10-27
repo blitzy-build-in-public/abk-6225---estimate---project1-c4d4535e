@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello World</title>
+</head>
+<body>
+<h1>{{ greeting }}</h1>
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+<form method="get" action="/">
+  <label for="name">Your name</label>
+  <input id="name" name="name" type="text" maxlength="50" value="{{ name }}">
+  <button type="submit">Greet me</button>
+</form>
+</body>
+</html>
