@@ -22,7 +22,9 @@ pip install -r requirements.txt
 python -m flask --app app run
 ```
 
-The app is then served at http://127.0.0.1:5000. No environment variable, configuration file or second command is needed.
+Run it from the repository root, the same directory the install and test commands assume: `--app app` imports the `app` module from the working directory, so the command fails with `Could not import 'app'` from anywhere else.
+
+The app is then served at http://127.0.0.1:5000. No environment variable, configuration file or second command is needed. Open that address in a browser: the page carries a form — a field labelled `Your name` and a `Greet me` submit button — that sends the typed name back to `/` as the `name` query parameter, so the heading reads `Hello, <name>!`.
 
 The development server binds the loopback interface only, so the app is not reachable from the network. Debug mode is deliberately absent from that command: the Werkzeug debugger it would enable lets code be executed through the browser.
 
@@ -36,13 +38,41 @@ PORT=5057 python app.py
 
 That serves http://127.0.0.1:5057. `PORT` is the only environment variable the application's own code reads, and it applies to this entry point.
 
+The `VAR=value command` prefix above is POSIX shell syntax, which cmd.exe and PowerShell do not implement; each shell sets the same variable with its own syntax. In cmd.exe:
+
+```bat
+set PORT=5057
+python app.py
+```
+
+In PowerShell:
+
+```powershell
+$env:PORT="5057"
+python app.py
+```
+
+Only the way the variable is set differs — the application itself still needs no platform-specific step, so it is the same override on every platform.
+
 The Flask CLI path is different: the CLI resolves its port before it imports the application module, so it never sees `PORT`. Use Flask's own variable there instead:
 
 ```bash
 FLASK_RUN_PORT=5057 python -m flask --app app run
 ```
 
-`FLASK_RUN_PORT` is read by the Flask CLI, not by `app.py`.
+`FLASK_RUN_PORT` is read by the Flask CLI, not by `app.py`. Set it with each shell's own syntax too — in cmd.exe:
+
+```bat
+set FLASK_RUN_PORT=5057
+python -m flask --app app run
+```
+
+and in PowerShell:
+
+```powershell
+$env:FLASK_RUN_PORT="5057"
+python -m flask --app app run
+```
 
 ## Test
 

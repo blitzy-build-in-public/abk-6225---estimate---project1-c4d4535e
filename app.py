@@ -24,11 +24,7 @@ app = Flask(__name__)
 
 
 def normalise_name(raw: str | None) -> str | None:
-    """Return the submitted name trimmed, or None when no name was given.
-
-    Trimming here is what makes an absent, empty or whitespace-only name one
-    and the same "no name" input on both routes.
-    """
+    """Return the submitted name trimmed, or None when no name was given."""
     if raw is None:
         return None
     name = raw.strip()
