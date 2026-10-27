@@ -71,7 +71,7 @@ def api_hello():
 
 @app.errorhandler(404)
 def not_found(error):
-    """Return the fixed plain-text body and status for an unmatched path."""
+    """Return the 404 message, status and content type; error is unused."""
     # The three-part form is required: Flask does not adopt a handler's own
     # status code, and a bare string body would be served as text/html.
     return NOT_FOUND_MESSAGE, 404, PLAIN_TEXT
@@ -79,9 +79,9 @@ def not_found(error):
 
 @app.errorhandler(405)
 def method_not_allowed(error):
-    """Return the fixed plain-text body for an unsupported method."""
+    """Return the 405 message, status and content type; error is unused."""
     return METHOD_NOT_ALLOWED_MESSAGE, 405, PLAIN_TEXT
 
 
 if __name__ == "__main__":
-    app.run(port=PORT)
+    app.run(port=PORT, debug=False)
